@@ -11,7 +11,7 @@ function generatePassword() {
     lowercase: 'on',
     uppercase: 'on',
     numbers: 'on',
-    excludeCharacters: 'aB0'
+    excludeCharacters: 'abcdABCD0123'
   }
   // Create a collection that contains the actual need from the users
   let collection = []
@@ -28,11 +28,11 @@ function generatePassword() {
   if (options.symbols === 'on') {
     collection = collection.concat(symbols.split(''))
   }
-  console.log(collection)
-
-
   // Remove the characters the users want to exclude 
-
+  if (options.excludeCharacters) {
+    collection = collection.filter(character => !options.excludeCharacters.includes(character))
+    // console.log(collection)
+  }
   // Generate password  collection [a,b,c,A,B,C,1,2,3] => a1Abb...
 
   // Return password we generated. 
