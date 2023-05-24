@@ -8,6 +8,8 @@ const port = 3000
 const exphdb = require('express-handlebars')
 // Load body parser package
 const bodyParser = require('body-parser')
+// Load and use generatePassword function
+const generatePassword = require('./generate_password')
 
 // Use express handlebars in express
 app.engine('handlebars', exphdb({ defaultLayout: 'main'}))
@@ -22,9 +24,9 @@ app.get('/', (req, res) => {
 })
 // Setting up POST route
 app.post('/', (req, res) => {
-  // console.log('This is a response from POST')
-  console.log('req.body', req.body)
-  res.render('index')
+  const options = req.body
+  const passwords = generatePassword(options)
+  res.render('index', {passwords: passwords, options: options})
 })
 
 // The server is running adn listening at http://localhost:3000

@@ -6,20 +6,20 @@ function sample(array) {
 }
 
 // Define generatePassword function
-function generatePassword() {
+function generatePassword(options) {
   // Define the options that the users might need (data)
   const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz'
   const uppercaseLetters = lowercaseLetters.toUpperCase()
   const numbers = '1234567890'
   const symbols = '`~!@$%^&*()-_+={}[]|;:"<>,.?/' 
   // Create dummy data to test our function (test)
-  const options = {
-    length: '10',
-    lowercase: 'on',
-    uppercase: 'on',
-    numbers: 'on',
-    excludeCharacters: 'abcdABCD0123'
-  }
+  // const options = {
+  //   length: '10',
+  //   lowercase: 'on',
+  //   uppercase: 'on',
+  //   numbers: 'on',
+  //   excludeCharacters: 'abcdABCD0123'
+  // }
   // Create a collection that contains the actual need from the users
   let collection = []
   let password = ''
@@ -40,6 +40,9 @@ function generatePassword() {
   if (options.excludeCharacters) {
     collection = collection.filter(character => !options.excludeCharacters.includes(character))
   }
+  if (collection.length === 0) {
+    return 'You have to select at least one character to generate the password!'
+  }
   // Generate a password based on collection array  
   for (let i = 1; i <= options.length; i++) {
     password += sample(collection)
@@ -48,4 +51,4 @@ function generatePassword() {
   return password
 }
 
-generatePassword()
+module.exports = generatePassword
