@@ -1,3 +1,10 @@
+// Define a sample function to create a single random password
+function sample(array) {
+  const length = array.length 
+  const randomIndex = Math.floor(Math.random() * length)
+  return array[randomIndex]
+}
+
 // Define generatePassword function
 function generatePassword() {
   // Define the options that the users might need (data)
@@ -15,7 +22,8 @@ function generatePassword() {
   }
   // Create a collection that contains the actual need from the users
   let collection = []
-  // 'abcde' => [a, b, c, d,...]
+  let password = ''
+  
   if (options.lowercase === 'on') {
     collection = collection.concat(lowercaseLetters.split(''))
   }
@@ -31,12 +39,13 @@ function generatePassword() {
   // Remove the characters the users want to exclude 
   if (options.excludeCharacters) {
     collection = collection.filter(character => !options.excludeCharacters.includes(character))
-    // console.log(collection)
   }
-  // Generate password  collection [a,b,c,A,B,C,1,2,3] => a1Abb...
-
+  // Generate a password based on collection array  
+  for (let i = 1; i <= options.length; i++) {
+    password += sample(collection)
+  }
   // Return password we generated. 
-  console.log('This is a password we generated!')
+  return password
 }
 
 generatePassword()
